@@ -1,5 +1,3 @@
-import 'package:crypto_flutter_app/datamanagement/home/home_page_repository.dart';
-import 'package:crypto_flutter_app/models/main_data_model.dart';
 import 'package:crypto_flutter_app/network/response/coin_list_response.dart';
 import 'package:crypto_flutter_app/pages/home/home_page_view_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,7 +20,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-   // homePageRepository = HomePageRepository(api);
     _futureMainDataModel = _viewModel.getCoinList();
     super.initState();
   }
@@ -34,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData) {
-            var coinsData = snapshot.data!.dataModel;
+            var coinsData = snapshot.data!.data;
             return CoinListWidget(coins: coinsData);
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');

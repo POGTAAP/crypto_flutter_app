@@ -6,11 +6,11 @@ part 'coin_list_response.g.dart';
 
 @JsonSerializable()
 class CoinListResponse {
-  final StatusModel statusModel;
-  final List<DataModel> dataModel;
+  final StatusModel status;
+  final List<DataModel> data;
 
 
-  CoinListResponse(this.statusModel, this.dataModel);
+  CoinListResponse(this.status, this.data);
 
   factory CoinListResponse.fromJson(Map<String,dynamic> data) => _$CoinListResponseFromJson(data);
 

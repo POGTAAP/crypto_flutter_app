@@ -36,7 +36,7 @@ class CoinListWidget extends StatelessWidget {
               itemCount: coins.length,
               itemBuilder: (context, index) {
                 var coin = coins[index];
-                var coinPrice = coin.quoteModel.usdModel;
+               // var coinPrice = coin.quoteModel.usdModel;
                /* var data = [
                   ChartData(coinPrice.percentChange_90d, 2160),
                   ChartData(coinPrice.percentChange_60d, 1440),

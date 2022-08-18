@@ -1,4 +1,3 @@
-import 'package:crypto_flutter_app/models/main_data_model.dart';
 import 'package:crypto_flutter_app/network/response/coin_list_response.dart';
 
 import '../../base/base_view_model.dart';
@@ -17,7 +16,7 @@ class HomePageViewModel extends BaseViewModel {
     await load(() {
       return _service.getCoinList();
     }, (response) {
-      return _response = response;
+      _response = response;
     }, (error) {
       this.error = error as Exception?;
       closeLoadingAndNotifyPage();
