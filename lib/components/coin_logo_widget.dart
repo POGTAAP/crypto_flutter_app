@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../models/data_model.dart';
 
@@ -31,8 +32,8 @@ class CoinLogoWidget extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: ((coinIconUrl + coin.symbol + ".png").toLowerCase()),
                 placeholder: (context, url) => CircularProgressIndicator(),
-               /* errorWidget: (context, url, error) =>
-                    SvgPicture.asset('assets/icons/dollar.svg'),*/
+                errorWidget: (context, url, error) =>
+                    SvgPicture.asset('assets/icons/coin.svg'),
               )),
           const SizedBox(height: 4.0),
           Text(

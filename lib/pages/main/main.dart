@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     var textSize = Theme.of(context).textTheme;
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
         textTheme: textSize.copyWith(
           headline4: textSize.headline4!.copyWith(color: Colors.yellow),
           headline5: textSize.headline5!.copyWith(color: Colors.yellow),
@@ -23,12 +23,10 @@ class MyApp extends StatelessWidget {
           subtitle2: textSize.subtitle2!.copyWith(color: Colors.yellow),
           overline: textSize.overline!.copyWith(color: Colors.grey),
         ),
+        scaffoldBackgroundColor: Colors.blue,
       ),
       themeMode: ThemeMode.light,
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Me Title'),
-          ),
           body: HomePage()),
     );
   }
