@@ -2,7 +2,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../models/chart_data.dart';
 import '../models/data_model.dart';
+import 'coin_chart_widget.dart';
 import 'coin_logo_widget.dart';
 
 class CoinListWidget extends StatelessWidget {
@@ -36,14 +38,14 @@ class CoinListWidget extends StatelessWidget {
               itemCount: coins.length,
               itemBuilder: (context, index) {
                 var coin = coins[index];
-               // var coinPrice = coin.quoteModel.usdModel;
-               /* var data = [
+                var coinPrice = coin.quoteModel.usdModel;
+                var data = [
                   ChartData(coinPrice.percentChange_90d, 2160),
                   ChartData(coinPrice.percentChange_60d, 1440),
                   ChartData(coinPrice.percentChange_30d, 720),
                   ChartData(coinPrice.percentChange_24h, 24),
                   ChartData(coinPrice.percentChange_1h, 1),
-                ];*/
+                ];
                 return GestureDetector(
                   onTap: () {
                    /* Navigator.push(
@@ -67,11 +69,11 @@ class CoinListWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CoinLogoWidget(coin: coin),
-                        /*CoinChartWidget(
+                        CoinChartWidget(
                           data: data,
                           coinPrice: coinPrice,
                           color: Colors.grey,
-                        ),*/
+                        ),
                       ],
                     ),
                   ),
