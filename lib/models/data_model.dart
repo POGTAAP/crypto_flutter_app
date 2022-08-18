@@ -1,5 +1,9 @@
 import 'package:crypto_flutter_app/models/quote_model.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'data_model.g.dart';
+
+@JsonSerializable()
 class DataModel {
   final int id;
   final String name;
@@ -18,21 +22,7 @@ class DataModel {
   DataModel(this.id, this.name, this.symbol, this.slug, this.numMarketPairs, this.dateAdded, this.tags, this.maxSupply, this.circulatingSupply, this.totalSupply, this.cmcRank, this.lastUpdated,
       this.quoteModel);
 
-  factory DataModel.fromJson(Map<String, dynamic> json) {
-    return DataModel(
-      json["id"],
-      json["name"],
-      json["symbol"],
-      json["slug"],
-      json["num_market_pairs"],
-      json["date_added"],
-      json["tags"],
-      json["max_supply"] ?? 0,
-      json["circulating_supply"],
-      json["total_supply"],
-      json["cmc_rank"],
-      json["last_updated"],
-      QuoteModel.fromJson(json["quote"]),
-    );
-  }
+  factory DataModel.fromJson(Map<String,dynamic> data) => _$DataModelFromJson(data);
+
+  Map<String,dynamic> toJson() => _$DataModelToJson(this);
 }

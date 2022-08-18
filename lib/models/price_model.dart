@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+part 'price_model.g.dart';
+
+@JsonSerializable()
 class PriceModel {
   final num price;
   final num volume24h;
@@ -22,24 +26,11 @@ class PriceModel {
         required this.marketCap,
         required this.lastUpdated});
 
-  factory PriceModel.fromJson(Map<String, dynamic> json) {
-    return PriceModel(
-      price: json["price"] == null ? 0.0 : json["price"],
-      volume24h: json["volume_24"] == null ? 0.0 : json["volume_24"],
-      percentChange_1h:
-      json["percent_change_1h"] == null ? 0.0 : json["percent_change_1h"],
-      percentChange_24h:
-      json["percent_change_24h"] == null ? 0.0 : json["percent_change_24h"],
-      percentChange_7d:
-      json["percent_change_7d"] == null ? 0.0 : json["percent_change_7d"],
-      percentChange_30d:
-      json["percent_change_30d"] == null ? 0.0 : json["percent_change_7d"],
-      percentChange_60d:
-      json["percent_change60d"] == null ? 0.0 : json["percent_change60d"],
-      percentChange_90d:
-      json["percent_change90d"] == null ? 0.0 : json["percent_change90d"],
-      marketCap: json["market_cap"] == null ? 0.0 : json["market_cap"],
-      lastUpdated: json["last_updated"],
-    );
-  }
+
+  factory PriceModel.fromJson(Map<String,dynamic> data) => _$PriceModelFromJson(data);
+
+  Map<String,dynamic> toJson() => _$PriceModelToJson(this);
 }
+
+
+

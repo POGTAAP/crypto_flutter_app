@@ -1,9 +1,12 @@
+import 'package:crypto_flutter_app/datamanagement/home/home_page_repository.dart';
 import 'package:crypto_flutter_app/models/main_data_model.dart';
-import 'package:crypto_flutter_app/repository/crypto_repository.dart';
+import 'package:crypto_flutter_app/network/response/coin_list_response.dart';
+import 'package:crypto_flutter_app/pages/home/home_page_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/coin_list_widget.dart';
+import '../../util/view_model_factory.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,19 +16,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<MainDataModel> _futureMainDataModel;
-  late CryptoRepository cryptoRepository;
+  final HomePageViewModel _viewModel = ViewModelFactory.homePageViewModel;
+
+  late Future<CoinListResponse?> _futureMainDataModel;
 
   @override
   void initState() {
-    cryptoRepository = CryptoRepository();
-    _futureMainDataModel = cryptoRepository.getCoinList();
+   // homePageRepository = HomePageRepository(api);
+    _futureMainDataModel = _viewModel.getCoinList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<MainDataModel>(
+    return FutureBuilder<CoinListResponse?>(
       future: _futureMainDataModel,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
