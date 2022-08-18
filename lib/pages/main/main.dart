@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var textSize = Theme.of(context).textTheme;
     return MaterialApp(
-      title: 'Flutter Crypto App',
-      theme: ThemeData.dark().copyWith(
+      theme: ThemeData(
+        primarySwatch: Colors.red,
         textTheme: textSize.copyWith(
           headline4: textSize.headline4!.copyWith(color: Colors.yellow),
           headline5: textSize.headline5!.copyWith(color: Colors.yellow),
@@ -24,8 +24,12 @@ class MyApp extends StatelessWidget {
           overline: textSize.overline!.copyWith(color: Colors.grey),
         ),
       ),
-      themeMode: ThemeMode.dark,
-      home: HomePage(),
+      themeMode: ThemeMode.light,
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('Me Title'),
+          ),
+          body: HomePage()),
     );
   }
 }
