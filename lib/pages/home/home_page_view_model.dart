@@ -13,11 +13,4 @@ class HomePageViewModel extends BaseViewModel {
   Future<CoinListResponse?> getCoinList() async {
     return _service.getCoinList();
   }
-
-  void reset() {
-    _response = null;
-    error = null;
-    isLoading = false;
-    notifyListeners();
-  }
 }

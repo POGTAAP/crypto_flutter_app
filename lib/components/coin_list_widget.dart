@@ -1,9 +1,11 @@
+import 'package:crypto_flutter_app/models/price_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../models/chart_data.dart';
 import '../models/data_model.dart';
+import '../pages/details/coin_details_page.dart';
 import 'coin_chart_widget.dart';
+import 'custom_app_bar_widget.dart';
 import 'coin_logo_widget.dart';
 
 class CoinListWidget extends StatelessWidget {
@@ -23,60 +25,48 @@ class CoinListWidget extends StatelessWidget {
           Expanded(
             child: CustomScrollView(
               slivers: [
-                SliverAppBar(
-                  forceElevated: true,
-                  expandedHeight: 160,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Image.asset('assets/images/header.jpg',fit: BoxFit.cover),
-                    title: Text('Coin list'),
-                  ),
-                  pinned: true,
-                ),
-                SliverList(
-                  delegate: sliverSeparatedBuilder(
-                    itemBuilder: (context, index) {
-                      var coin = coins[index];
-                      var coinPrice = coin.quoteModel.usdModel;
-                      var data = [
-                        ChartData(coinPrice.percentChange_90d, 2160),
-                        ChartData(coinPrice.percentChange_60d, 1440),
-                        ChartData(coinPrice.percentChange_30d, 720),
-                        ChartData(coinPrice.percentChange_24h, 24),
-                        ChartData(coinPrice.percentChange_1h, 1),
-                      ];
-                      return GestureDetector(
-                        onTap: () {
-                          /* Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CoinDetailScreen(coin: coin)),
-                          );*/
-                        },
-                        child: Container(
-                          height: 120.0,
-                          width: double.infinity,
-                          margin: const EdgeInsets.symmetric( horizontal: 16.0,vertical: 8),
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(0, 0, 0, 0.6),
-                            borderRadius: BorderRadius.circular(16.0),
+                const CustomAppBar(title:"Coin list"),
+                SliverPadding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  sliver: SliverList(
+                    delegate: sliverSeparatedBuilder(
+                      itemBuilder: (context, index) {
+                        var coin = coins[index];
+                        var coinPrice = coin.quoteModel.priceModel;
+                        return GestureDetector(
+                          onTap: () {
+                             Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CoinDetailScreen(coin)),
+                            );
+                          },
+                          child: Container(
+                            height: 120.0,
+                            width: double.infinity,
+                            margin: const EdgeInsets.symmetric( horizontal: 16.0),
+                            decoration: BoxDecoration(
+                              color: const Color.fromRGBO(0, 0, 0, 0.6),
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CoinLogoWidget(coin: coin),
+                                CoinChartWidget(
+                                  data: _getChartData(coinPrice),
+                                  coinPrice: coinPrice,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              CoinLogoWidget(coin: coin),
-                              CoinChartWidget(
-                                data: data,
-                                coinPrice: coinPrice,
-                                color: Colors.grey,
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    childCount: coins.length,
-                    separatorBuilder: (context, index) => const Divider(color: Colors.transparent),
+                        );
+                      },
+                      childCount: coins.length,
+                      separatorBuilder: (context, index) => const Divider(color: Colors.transparent),
+                    ),
                   ),
                 ),
               ],
@@ -85,6 +75,16 @@ class CoinListWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _getChartData(PriceModel coinPrice) {
+    return [
+      ChartData(coinPrice.percentChange_1h, 1),
+      ChartData(coinPrice.percentChange_24h, 2),
+      ChartData(coinPrice.percentChange_30d, 3),
+      ChartData(coinPrice.percentChange_60d, 4),
+      ChartData(coinPrice.percentChange_90d, 5),
+    ];
   }
 }
 

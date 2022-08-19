@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import '../models/data_model.dart';
 
 class CoinLogoWidget extends StatelessWidget {
   final DataModel coin;
+
   const CoinLogoWidget({
     Key? key,
     required this.coin,
@@ -15,8 +15,7 @@ class CoinLogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var coinIconUrl =
-        "https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/";
+    var coinIconUrl = "https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/";
     TextTheme textStyle = Theme.of(context).textTheme;
 
     return Container(
@@ -26,14 +25,13 @@ class CoinLogoWidget extends StatelessWidget {
       //78 Remaining
       child: Column(
         children: [
-          Container(
+          SizedBox(
               height: 50.0,
               width: 50.0,
               child: CachedNetworkImage(
                 imageUrl: ((coinIconUrl + coin.symbol + ".png").toLowerCase()),
-                placeholder: (context, url) => CircularProgressIndicator(),
-                errorWidget: (context, url, error) =>
-                    SvgPicture.asset('assets/icons/coin.svg'),
+                placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white),
+                errorWidget: (context, url, error) => SvgPicture.asset('assets/icons/coin.svg'),
               )),
           const SizedBox(height: 4.0),
           Text(
@@ -42,7 +40,7 @@ class CoinLogoWidget extends StatelessWidget {
           ),
           const SizedBox(height: 2.0),
           Text(
-            "\$" + coin.quoteModel.usdModel.price.toStringAsFixed(2),
+            "\$" + coin.quoteModel.priceModel.price.toStringAsFixed(2),
             style: textStyle.subtitle2,
           ),
         ],

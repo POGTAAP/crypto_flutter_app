@@ -6,10 +6,10 @@ part 'quote_model.g.dart';
 class QuoteModel {
 
   @JsonKey(name: "USD")
-  final PriceModel usdModel;
+  final PriceModel priceModel;
 
   QuoteModel({
-    required this.usdModel,
+    required this.priceModel,
   });
 
   factory QuoteModel.fromJson(Map<String,dynamic> data) => _$QuoteModelFromJson(data);
