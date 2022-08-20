@@ -1,4 +1,5 @@
 import 'package:crypto_flutter_app/models/price_model.dart';
+import 'package:crypto_flutter_app/models/quote_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/chart_data.dart';
@@ -19,13 +20,34 @@ class CoinListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/header.jpg"), fit: BoxFit.cover)),
+              child: Text(""),
+            ),
+            ListTile(
+              leading: const Icon(Icons.star),
+              title: const Text('Fauvorites'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CoinDetailScreen(coins[1])),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: CustomScrollView(
               slivers: [
-                const CustomAppBar(title:"Coin list"),
+                const CustomAppBar(title: "Coin list"),
                 SliverPadding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   sliver: SliverList(
@@ -35,16 +57,15 @@ class CoinListWidget extends StatelessWidget {
                         var coinPrice = coin.quoteModel.priceModel;
                         return GestureDetector(
                           onTap: () {
-                             Navigator.push(
+                            Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => CoinDetailScreen(coin)),
+                              MaterialPageRoute(builder: (context) => CoinDetailScreen(coin)),
                             );
                           },
                           child: Container(
                             height: 120.0,
                             width: double.infinity,
-                            margin: const EdgeInsets.symmetric( horizontal: 16.0),
+                            margin: const EdgeInsets.symmetric(horizontal: 16.0),
                             decoration: BoxDecoration(
                               color: const Color.fromRGBO(0, 0, 0, 0.6),
                               borderRadius: BorderRadius.circular(16.0),
