@@ -19,63 +19,65 @@ class FavouritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const CustomAppBar(title: "Kedvencek"),
-          SliverToBoxAdapter(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                FutureProvider<List<DataModel>?>(
-                  create: (context) => _viewModel.getFavouriteCoins(),
-                  initialData: null,
-                  catchError: (context, error) => null,
-                  child: Consumer<List<DataModel>?>(
-                    builder: (context, value, child) {
-                      if (value == null) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        );
-                      } else {
-                        var coinsData = value;
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: _listView(coinsData),
-                        );
-                      }
-                    },
-                  ),
-                ),
-              ],
-            ),
-          )
-        ],
+    return FutureProvider<List<DataModel>?>(
+      create: (context) => _viewModel.coins,
+      initialData: null,
+      catchError: (context, error) => null,
+      child: Consumer<List<DataModel>?>(
+        builder: (context, value, child) {
+          if (value == null) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            );
+          } else {
+            return Scaffold(
+              body: _listView(value,context),
+            );
+          }
+        },
       ),
     );
   }
 
-  Widget _listView(List<DataModel> coinsData) => ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: (BuildContext context, int index) {
-          var coin = coinsData[index];
-          return Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              GestureDetector(
-                child: FavoriteItem(
-                  coin: coin,
-                  onTap: () =>  _viewModel.removeCoinFromFavourites(coin),
+  Widget _listView(List<DataModel> coins, BuildContext providerContext) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                const CustomAppBar(title: "Kedvencek"),
+                SliverPadding(
+                  padding: const EdgeInsets.all(16.0),
+                  sliver: SliverList(
+                    delegate: sliverSeparatedBuilder(
+                      itemBuilder: (context, index) {
+                        var coin = coins[index];
+                        return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => CoinDetailPage(coin)),
+                              );
+                            },
+                            child: FavouriteItem(
+                              coin: coin,
+                              onItemTap: () => {
+                                _viewModel.removeCoinFromFavourites(coin),
+                              },
+                              onRowTap: ()=>_navigateToDetails(coin, context),
+                            ));
+                      },
+                      childCount: coins.length,
+                      separatorBuilder: (context, index) => const Divider(color: Colors.transparent),
+                    ),
+                  ),
                 ),
-                onTap: () => _navigateToDetails(coin, context),
-              )
-            ],
-          );
-        },
-        itemCount: coinsData.length,
+              ],
+            ),
+          ),
+        ],
       );
 
   void _navigateToDetails(DataModel coin, BuildContext context) {
