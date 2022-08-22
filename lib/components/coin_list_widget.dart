@@ -1,12 +1,12 @@
 import 'package:crypto_flutter_app/models/price_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import '../models/chart_data.dart';
 import '../models/data_model.dart';
 import '../pages/details/coin_details_page.dart';
 import 'coin_chart_widget.dart';
-import 'custom_app_bar_widget.dart';
 import 'coin_logo_widget.dart';
+import 'custom_app_bar_widget.dart';
 
 class CoinListWidget extends StatelessWidget {
   final List<DataModel> coins;
