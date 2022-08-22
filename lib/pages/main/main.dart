@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
           headline6: textSize.headline6!.copyWith(color: Colors.yellow),
           subtitle1: textSize.subtitle1!.copyWith(color: Colors.yellow),
           subtitle2: textSize.subtitle2!.copyWith(color: Colors.yellow),
+          bodyText1: textSize.bodyText1!.copyWith(color: Colors.yellow),
           overline: textSize.overline!.copyWith(color: Colors.grey),
         ),
         scaffoldBackgroundColor: Colors.blue,

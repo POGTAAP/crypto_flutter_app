@@ -1,22 +1,20 @@
-import 'dart:math';
-import 'package:crypto_flutter_app/models/coin_view_data.dart';
-import 'package:crypto_flutter_app/pages/details/coin_details_view_model.dart';
-import 'package:flutter/material.dart';
 
+import 'package:crypto_flutter_app/models/coin_view_data.dart';
+import 'package:crypto_flutter_app/pages/details/coin_details_page_view_model.dart';
+import 'package:flutter/material.dart';
 import '../../components/custom_app_bar_widget.dart';
 import '../../components/coin_randomed_chart_widget.dart';
-import '../../models/chart_data.dart';
 import '../../models/data_model.dart';
 import '../../util/view_model_factory.dart';
 
-class CoinDetailScreen extends StatelessWidget {
-  final CoinDetailsViewModel _viewModel = ViewModelFactory.coinDetailsViewModel;
+class CoinDetailPage extends StatelessWidget {
+  final CoinDetailsPageViewModel _viewModel = ViewModelFactory.coinDetailsViewModel;
 
-  CoinDetailScreen(DataModel coin, {Key? key}) : super(key: key) {
+  CoinDetailPage(DataModel coin, {Key? key}) : super(key: key) {
     _viewModel.setCoin(coin);
   }
 
-  /// sajnos a Basic api nem ad hozzáférést az eggyes coinok árfolyam adataihoz ezért random adatokkal töltöm fel!
+  /// Sajnos a Basic api nem ad hozzáférést az eggyes coinok árfolyam adataihoz ezért random adatokkal töltöm fel!
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +36,16 @@ class CoinDetailScreen extends StatelessWidget {
                           child: _getRow(context, itemData),
                         ),
                       const SizedBox(height: 8.0),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _getFavouriteButton(context),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8.0),
                     ],
                   ),
                 ),
@@ -51,20 +59,36 @@ class CoinDetailScreen extends StatelessWidget {
 
   Widget _getRow(context, CoinViewData data) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           data.title,
           style: Theme.of(context).textTheme.subtitle1,
-        ),
-        Flexible(
-          child: Container(),
         ),
         Text(
           data.value,
           style: Theme.of(context).textTheme.headline6,
         ),
       ],
+    );
+  }
+
+  _getFavouriteButton(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20),primary: const Color.fromRGBO(0, 0, 0, 0.6),),
+      onPressed: () {
+        //TODO: mentés shared preferences-be
+        _viewModel.saveCoinToFavourites();
+      },
+      child: Row(
+        children: [
+          const Icon(Icons.star, color: Colors.yellowAccent),
+          Text(
+            "Add to favourites",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      ),
     );
   }
 }

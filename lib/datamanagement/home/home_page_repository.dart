@@ -3,7 +3,7 @@ import 'package:crypto_flutter_app/network/response/coin_list_response.dart';
 import '../repository/base/base_respository.dart';
 
 class HomePageRepository extends BaseRepository {
-  const HomePageRepository(api) : super(api);
+  const HomePageRepository(api, sharedPreferences) : super(api, sharedPreferences);
 
   Future<CoinListResponse> getCoinList()async {
     return await api.getCoinList(CoinListRequest());

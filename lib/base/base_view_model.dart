@@ -12,6 +12,7 @@ class BaseViewModel extends ChangeNotifier {
   Exception? error;
   bool isLoading = false;
   bool navigateToLogin = false;
+  bool isDispose = false;
 
   BaseViewModel(this._baseService);
 
@@ -28,11 +29,6 @@ class BaseViewModel extends ChangeNotifier {
 
   void handleError(Exception error, Function onError) {
     if (error is UnauthorizedError) {
-      //handleLogout();
-    }
-
-    if (error is TimeoutException || error is SocketException) {
-      error = SocketTimeoutError("error_socket_timeout");
     }
 
     closeLoadingAndNotifyPage();
@@ -41,6 +37,8 @@ class BaseViewModel extends ChangeNotifier {
 
   void closeLoadingAndNotifyPage() {
     isLoading = false;
-    notifyListeners();
+    if (!isDispose) {
+      notifyListeners();
+    }
   }
 }

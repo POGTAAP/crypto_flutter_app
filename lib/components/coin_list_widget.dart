@@ -1,5 +1,4 @@
 import 'package:crypto_flutter_app/models/price_model.dart';
-import 'package:crypto_flutter_app/models/quote_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/chart_data.dart';
@@ -19,82 +18,59 @@ class CoinListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/header.jpg"), fit: BoxFit.cover)),
-              child: Text(""),
-            ),
-            ListTile(
-              leading: const Icon(Icons.star),
-              title: const Text('Fauvorites'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CoinDetailScreen(coins[1])),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: CustomScrollView(
-              slivers: [
-                const CustomAppBar(title: "Coin list"),
-                SliverPadding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                  sliver: SliverList(
-                    delegate: sliverSeparatedBuilder(
-                      itemBuilder: (context, index) {
-                        var coin = coins[index];
-                        var coinPrice = coin.quoteModel.priceModel;
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => CoinDetailScreen(coin)),
-                            );
-                          },
-                          child: Container(
-                            height: 120.0,
-                            width: double.infinity,
-                            margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                            decoration: BoxDecoration(
-                              color: const Color.fromRGBO(0, 0, 0, 0.6),
-                              borderRadius: BorderRadius.circular(16.0),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CoinLogoWidget(coin: coin),
-                                CoinChartWidget(
-                                  data: _getChartData(coinPrice),
-                                  coinPrice: coinPrice,
-                                  color: Colors.white,
-                                ),
-                              ],
-                            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: CustomScrollView(
+            slivers: [
+              const CustomAppBar(title: "Coin list"),
+              SliverPadding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                sliver: SliverList(
+                  delegate: sliverSeparatedBuilder(
+                    itemBuilder: (context, index) {
+                      var coin = coins[index];
+                      var coinPrice = coin.quoteModel.priceModel;
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => CoinDetailPage(coin)),
+                          );
+                        },
+                        child: Container(
+                          height: 120.0,
+                          width: double.infinity,
+                          margin: const EdgeInsets.symmetric(horizontal: 16.0),
+                          decoration: BoxDecoration(
+                            color: const Color.fromRGBO(0, 0, 0, 0.6),
+                            borderRadius: BorderRadius.circular(16.0),
                           ),
-                        );
-                      },
-                      childCount: coins.length,
-                      separatorBuilder: (context, index) => const Divider(color: Colors.transparent),
-                    ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CoinLogoWidget(coin: coin),
+                              CoinChartWidget(
+                                data: _getChartData(coinPrice),
+                                coinPrice: coinPrice,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    childCount: coins.length,
+                    separatorBuilder: (context, index) => const Divider(color: Colors.transparent),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

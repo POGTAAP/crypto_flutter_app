@@ -1,16 +1,17 @@
 import 'dart:math';
 
 import 'package:crypto_flutter_app/models/data_model.dart';
-import 'package:crypto_flutter_app/service/base/base_service.dart';
+import 'package:crypto_flutter_app/service/coin/coin_details_page_service.dart';
 import 'package:crypto_flutter_app/util/date_helper.dart';
 import '../../base/base_view_model.dart';
 import '../../models/chart_data.dart';
 import '../../models/coin_view_data.dart';
 
-class CoinDetailsViewModel extends BaseViewModel {
+class CoinDetailsPageViewModel extends BaseViewModel {
   late DataModel _coin;
+  final CoinDetailsPageService _service;
 
-  CoinDetailsViewModel(BaseService baseService) : super(baseService);
+  CoinDetailsPageViewModel(this._service) : super(_service);
 
   void setCoin(DataModel coin) {
     _coin = coin;
@@ -63,6 +64,10 @@ class CoinDetailsViewModel extends BaseViewModel {
       ChartData(next(9, 41), 15),
       ChartData(next(140, 200), 16),
     ];
+  }
+
+  void saveCoinToFavourites() {
+    _service.saveCoinToFavourites(_coin);
   }
 }
 
