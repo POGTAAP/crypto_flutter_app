@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:crypto_flutter_app/datamanagement/datastore/shared_preferences_util.dart';
 import 'package:crypto_flutter_app/models/data_model.dart';

@@ -4,16 +4,23 @@ import '../../service/favourites/favourites_page_service.dart';
 
 class FavouritesPageViewModel extends BaseViewModel {
   final FavouritesPageService _service;
-  Future<List<DataModel>?> get coins => _service.getFavouriteCoins();
+  List<DataModel> _coins = [];
+  List<DataModel> get coins => _coins;
 
-  FavouritesPageViewModel(this._service) : super(_service);
 
-  Future<List<DataModel>?> getFavouriteCoins() async{
-    return coins;
+  FavouritesPageViewModel(this._service) : super(_service) {
+    getFavouriteCoins();
+    notifyListeners();
+  }
+
+  Future<List<DataModel>> getFavouriteCoins() async {
+    _coins = (await _service.getFavouriteCoins())!;
+    closeLoadingAndNotifyPage();
+    return _coins;
   }
 
   removeCoinFromFavourites(DataModel coin) {
     _service.removeCoinFromFavourites(coin);
-    notifyListeners();
+    getFavouriteCoins();
   }
 }

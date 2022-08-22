@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:crypto_flutter_app/models/data_model.dart';
 import 'package:crypto_flutter_app/service/coin/coin_details_page_service.dart';
 import 'package:crypto_flutter_app/util/date_helper.dart';

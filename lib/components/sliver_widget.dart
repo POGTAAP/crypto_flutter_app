@@ -17,7 +17,7 @@ class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new SizedBox.expand(child: child);
+    return SizedBox.expand(child: child);
   }
 
   @override
@@ -29,6 +29,8 @@ class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 }
 
 class CollapsingList extends StatelessWidget {
+  const CollapsingList({Key? key}) : super(key: key);
+
   SliverPersistentHeader makeHeader(String headerText) {
     return SliverPersistentHeader(
       pinned: true,
@@ -61,7 +63,7 @@ class CollapsingList extends StatelessWidget {
             Container(color: Colors.pink, height: 150.0),
             Container(color: Colors.cyan, height: 150.0),
             Container(color: Colors.indigo, height: 150.0),
-            Container(color: Colors.blue, height: 150.0),
+            Container(color: Colors.blueAccent, height: 150.0),
           ],
         ),
         makeHeader('Header Section 2'),
@@ -105,7 +107,7 @@ class CollapsingList extends StatelessWidget {
               Container(color: Colors.pink, height: 150.0),
               Container(color: Colors.cyan, height: 150.0),
               Container(color: Colors.indigo, height: 150.0),
-              Container(color: Colors.blue, height: 150.0),
+              Container(color: Colors.blueAccent, height: 150.0),
             ],
           ),
         ),

@@ -1,10 +1,7 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import '../service/base/base_service.dart';
-import '../service/error/soket_timeout_error.dart';
 import '../service/error/unauthorized_error.dart';
 
 class BaseViewModel extends ChangeNotifier {
@@ -28,8 +25,7 @@ class BaseViewModel extends ChangeNotifier {
   }
 
   void handleError(Exception error, Function onError) {
-    if (error is UnauthorizedError) {
-    }
+    if (error is UnauthorizedError) {}
 
     closeLoadingAndNotifyPage();
     onError(error);
@@ -40,5 +36,11 @@ class BaseViewModel extends ChangeNotifier {
     if (!isDispose) {
       notifyListeners();
     }
+  }
+
+  @override
+  void dispose() {
+    isDispose = true;
+    super.dispose();
   }
 }

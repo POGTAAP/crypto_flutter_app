@@ -1,4 +1,3 @@
-
 import 'package:crypto_flutter_app/models/coin_view_data.dart';
 import 'package:crypto_flutter_app/pages/details/coin_details_page_view_model.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +76,6 @@ class CoinDetailPage extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20),primary: const Color.fromRGBO(0, 0, 0, 0.6),),
       onPressed: () {
-        //TODO: mentés shared preferences-be
         _viewModel.saveCoinToFavourites();
       },
       child: Row(

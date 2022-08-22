@@ -3,7 +3,6 @@ import 'package:crypto_flutter_app/pages/favourites/favourites_page.dart';
 import 'package:flutter/material.dart';
 import '../../components/coin_list_widget.dart';
 import 'package:provider/provider.dart';
-
 import '../../util/view_model_factory.dart';
 import 'home_page_view_model.dart';
 
@@ -30,6 +29,7 @@ class HomePage extends StatelessWidget {
             var coinsData = value.data;
             return Scaffold(
               drawer: Drawer(
+                backgroundColor: Colors.blueAccent,
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: [
@@ -41,9 +41,10 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.star),
-                      title: const Text('Favourite', style: TextStyle(color: Colors.black)),
+                      leading: const Icon(Icons.star,color: Colors.yellow,),
+                      title: const Text('Favourites', style: TextStyle(color: Colors.yellow)),
                       onTap: () {
+                        Navigator.pop(context);
                         Navigator.push(
                           context,
                           MaterialPageRoute(

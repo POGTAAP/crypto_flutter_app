@@ -1,6 +1,6 @@
 import 'package:crypto_flutter_app/models/data_model.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/svg.dart';
 import 'coin_logo_widget.dart';
 
 class FavouriteItem extends StatelessWidget {
@@ -24,9 +24,12 @@ class FavouriteItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CoinLogoWidget(coin: coin),
-            GestureDetector(
-              child: const Icon(Icons.close),
-              onTap: onItemTap,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                child: SizedBox(height: 32.0, width: 32.0, child: SvgPicture.asset('assets/icons/bin.svg', color: Colors.yellow)),
+                onTap: onItemTap,
+              ),
             ),
           ],
         ),

@@ -1,4 +1,3 @@
-
 import '../../models/data_model.dart';
 
 abstract class SharedPreferencesUtil {

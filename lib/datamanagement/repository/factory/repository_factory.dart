@@ -4,7 +4,6 @@ import 'package:crypto_flutter_app/datamanagement/repository/coin/coin_repositor
 import 'package:crypto_flutter_app/network/api/crypto_api.dart';
 import 'package:crypto_flutter_app/network/api/crypto_api_provider.dart';
 import 'package:crypto_flutter_app/network/header/prodplan_header_provider.dart';
-
 import '../../datastore/shared_preferences_util_impl.dart';
 
 class RepositoryFactory {
